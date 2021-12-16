@@ -110,15 +110,9 @@ func makeDatum(t time.Time, mm ...stats.Measure) (datum []*cloudwatch.MetricDatu
 			})
 		}
 
-		fmt.Println(m.Name)
-
 		prefix := stripPrefix(m.Name, 2)
 		for _, field := range m.Fields {
 			name := getName(prefix, field)
-
-			v := field.Value.Interface()
-			fmt.Printf("%20s: %#v (%v:%T)\n", name, v, field.Value.Type(), v)
-
 			value, unit := getValue(field.Value)
 			d := cloudwatch.MetricDatum{
 				Dimensions:        dimensions,
